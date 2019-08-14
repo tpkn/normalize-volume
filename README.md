@@ -32,8 +32,7 @@ Base on [Loudness Normalization](https://trac.ffmpeg.org/wiki/AudioVolume#Loudne
 ### options.volume   
 **Type**: _Number_  
 **Default**: `0.5`  
-Number starts with 0. Volume `0 = muted`, `2 = 200%`.   
-Ignored if `normalize = true`   
+Number starts with 0. Volume `0 = muted`, `2 = 200%`. Ignored if `normalize = true`   
 
 
 ### options.ffmpeg_bin   
