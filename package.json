@@ -1,0 +1,20 @@
+{
+   "name": "normalize-volume",
+   "main": "normalize-volume.js",
+   "version": "1.0.3",
+   "author": {
+      "url": "https://github.com/tpkn/"
+   },
+   "repository": "https://github.com/tpkn/normalize-volume",
+   "license": "MIT",
+   "keywords": [
+      "video",
+      "mp4",
+      "normalize",
+      "volume",
+      "waveform",
+      "wave",
+      "ffmpeg",
+      "convert"
+   ]
+}
