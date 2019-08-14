@@ -1,4 +1,4 @@
-# Normalize Volume
+# Normalize Volume [![npm Package](https://img.shields.io/npm/v/normalize-volume.svg)](https://www.npmjs.org/package/normalize-volume)
 Normalize audio using NodeJs and FFmpeg
 
 
@@ -51,6 +51,8 @@ Path to [ImageMagick Convert](https://imagemagick.org/) binary file
 **Type**: _Object_  
 **Default**: `null`  
 Optional visualization of the normalization result. In short, it is a waveforms before and after normalization, merged together.
+![waveform](https://raw.githubusercontent.com/tpkn/normalize-volume/master/waveform.png)
+
 To customize waveform, use this options:   
 
 | Option | Type | Default | What for? |
