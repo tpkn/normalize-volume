@@ -66,7 +66,7 @@ To customize waveform, use this options:
 | `after_color` | _String_ | #ff00b3 | 'after' waveform color |
 
 
-### @return
+### Output format
 **Type**: _Object_  
 ```javascript
 {
