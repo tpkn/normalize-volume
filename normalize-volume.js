@@ -1,3 +1,6 @@
+/*!
+ * Normalize Volume, http://tpkn.me/
+ */
 const fs = require('fs');
 const path = require('path');
 const spawn = require('child_process').spawn;
@@ -5,11 +8,14 @@ const spawn = require('child_process').spawn;
 function NormalizeVolume(input_file, output_file, options = {}){
    return new Promise((resolve, reject) => {
       let { 
+         
          volume = 0.5, 
          normalize = true, 
          ffmpeg_bin = 'ffmpeg', 
          convert_bin = 'convert',
          waveform,
+         silent = true
+
       } = options;
       
       let result = { file: output_file };
@@ -17,9 +23,9 @@ function NormalizeVolume(input_file, output_file, options = {}){
 
       // Normalize or just change the volume
       if(normalize){
-         cmd.push(`${ffmpeg_bin} -i "${input_file}" -y -c:v libx264 -c:a aac -ar 44100 -vcodec copy -filter:a loudnorm=print_format=json "${output_file}"`);
+         cmd.push(`"${ffmpeg_bin}" -i "${input_file}" -y -c:v libx264 -c:a aac -ar 44100 -vcodec copy -filter:a loudnorm=print_format=json "${output_file}"`);
       }else{
-         cmd.push(`${ffmpeg_bin} -i "${input_file}" -y -filter:a "volume=${volume}" "${output_file}"`);
+         cmd.push(`"${ffmpeg_bin}" -i "${input_file}" -y -filter:a "volume=${volume}" "${output_file}"`);
       }
 
       // Create two waveforms (before and after converting) merged together for comparison
@@ -35,11 +41,11 @@ function NormalizeVolume(input_file, output_file, options = {}){
          } = waveform;
 
          // 'Before' waveform
-         cmd.unshift(`${ffmpeg_bin} -i "${input_file}" -y -filter_complex "showwavespic=s=${width}x${height}:colors=${before_color}:split_channels=1" -frames:v 1 "${image_before}"`);
+         cmd.unshift(`"${ffmpeg_bin}" -i "${input_file}" -y -filter_complex "showwavespic=s=${width}x${height}:colors=${before_color}:split_channels=1" -frames:v 1 "${image_before}"`);
          // 'After' waveform
-         cmd.push(`${ffmpeg_bin} -i "${output_file}" -y -filter_complex "showwavespic=s=${width}x${height}:colors=${after_color}:split_channels=1" -frames:v 1 "${image_after}"`);
+         cmd.push(`"${ffmpeg_bin}" -i "${output_file}" -y -filter_complex "showwavespic=s=${width}x${height}:colors=${after_color}:split_channels=1" -frames:v 1 "${image_after}"`);
          // Merging
-         cmd.push(`${convert_bin} "${image_before}" "${image_after}" -gravity NorthEast -composite "${image_comparison}"`);
+         cmd.push(`"${convert_bin}" "${image_before}" "${image_after}" -gravity NorthEast -composite "${image_comparison}"`);
          // Cleanup a bit
          cmd.push(`del /f ${image_before}`);
          cmd.push(`del /f ${image_after}`);
@@ -49,6 +55,18 @@ function NormalizeVolume(input_file, output_file, options = {}){
       
 
       let child = spawn(cmd.join(' && '), { shell: true });
+
+      child.stdout.on('data', (data) => {
+         if(!silent){
+            console.log(`${data}`);
+         }
+      });
+
+      child.stderr.on('data', (data) => {
+         if(!silent){
+            console.log(`${data}`);
+         }
+      });
 
       child.on('exit', (exitCode) => {
          child.stdin.pause();
