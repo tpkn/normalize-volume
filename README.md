@@ -72,7 +72,7 @@ To customize waveform, use this options:
 Enables logging `stdout` / `stderr` data  
 
 
-### Output format
+### @output
 **Type**: _Object_  
 ```javascript
 {
