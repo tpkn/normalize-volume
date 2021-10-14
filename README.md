@@ -51,6 +51,7 @@ Path to [ImageMagick Convert](https://imagemagick.org/) binary file
 **Type**: _Object_  
 **Default**: `null`  
 Optional visualization of the normalization result. In short, it is a waveforms before and after normalization, merged together.
+
 ![waveform](https://raw.githubusercontent.com/tpkn/normalize-volume/master/waveform.png)
 
 To customize waveform, use this options:   
