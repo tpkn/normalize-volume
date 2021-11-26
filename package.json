@@ -1,7 +1,7 @@
 {
    "name": "normalize-volume",
    "main": "normalize-volume.js",
-   "version": "1.0.7",
+   "version": "1.0.8",
    "author": {
       "url": "https://github.com/tpkn/"
    },
